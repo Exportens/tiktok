@@ -6,5 +6,4 @@
 
 ## Provide a basic management platform to manage IDLs of services, and the gateway server needs to update the IDLs regularly.
 
-## Optional: Service discovery and load balancing are already implemented in Kitex, you can either choose a registry extension from kitex-contrib or implement one yourself; other service governance capabilities such as customized traffic routering, traffic dyeing, authentication, and rate limiter are 
-optional.
+## Optional: Service discovery and load balancing are already implemented in Kitex, you can either choose a registry extension from kitex-contrib or implement one yourself; other service governance capabilities such as customized traffic routering, traffic dyeing, authentication, and rate limiter are optional.
