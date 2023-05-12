@@ -1,6 +1,7 @@
 # API_gateway
+项目文件解释：
 
-1.忽略client和test文件夹
+1.请忽略client和test文件夹
 
 2.cmd文件夹包含一个名为hello的idl的注册服务以及服务端，其idl位置为./idl/idl3/hello.thrift，使用前运行nacos后，在该目录下运行：go run .
 3.hertz-gateway为网关，四个phg为main运行go run ./hertz-gateway，router.go里面针对http和json进行不同的泛化调用步骤
