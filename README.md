@@ -1,38 +1,71 @@
-# API_gateway
-项目文件解释：
+Explanation of project documents:
+1. Cache is a git generated file, please ignore it.
+2. The cmd folder contains a call to the server called hello, echo generalization, and its idl location is ./idl/
+3. The hertz gateway folder serves as the gateway, and in router.go, there are generalization calls for JSON
+In this folder directory: biz contains error, router, types, middleware (pls ignored), and handler. The handler contains gateway, which is the content of the generalized call client
+4. The idl folder contains different idl folders:/:svc (with version)/:action should be used for calling in http
+5.kitex_gen folder contains common (return error)
+6. The log folder is the gateway and all service logs
+7. go.mod named API_ gateway
+8. go.sum generates files for go (derived)
 
-1.请忽略client和test文件夹
+######################################################################
 
-2.cmd文件夹包含一个名为hello的idl的注册服务以及服务端，其idl位置为./idl/idl3/hello.thrift，使用前运行nacos后，在该目录下运行：go run .
-3.hertz-gateway为网关，四个phg为main运行go run ./hertz-gateway，router.go里面针对http和json进行不同的泛化调用步骤
+Usage method:
+localhost(can be replaced by 127.0.0.1)
+Start nacos:
+Run in nacos/bin with the nacos version file directory
+bash startup.sh - m standalone 
+Login 127.0.0.1:8848/nacos
+The idl for subsequent implementation and testing is in/idl (pay attention to version)
+Run go run on the hertz gateway
+cmd/hello input: go run .                 -------------hello(add)
+cmd/echo/echo-v1 input: go run .	-----echo-v1(add, just same as hello)
+cmd/echo/echo-v2 input: go run .	-------------echo-v2(mul)
 
-              该文件夹目录下：biz包含error，router，types，middleware（忽略），和handler，handler包含gateway，内容是泛化调用客户端内容
-              
-4.idl文件下包含不同idl文件：问题在于使用/:svc分支post，期待能进行优化！
+######################################################################
 
-5.kitex_gen包含common（返回error），echo文件夹（请忽略！），payment：是针对idl/idl4/payment.thrift的使用kitex命令生成的服务框架和内容；其余文件，均为hello.thrift的服务框架
+Gateway testing:
+Base test:
+ps: running with port 8080.
+curl 127.0.0.1:8080 
+or
+curl http://127.0.0.1:8080/ping     ------will return {"message":"pong"}
+Other tests:
+Latest kitex-json test statements:2023.5.16（"996ers" is the return-code of running seccessfully）
+The format should be
+curl -X POST HTTP/1.1(optional) -H "Content-Type: application/json"(optional) 'http://domain(:port)/gateway-svcName-version/svcName-version/method' -d '{"message": "hi"}'(can be replaced)
+port is the same as your gateway setting.
+curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/echo -d '{"message":"Updated"}'
+-------------return 996ers{\"message\": \"OK! Both svr and gateway are on the way to restart!\"}(After the gateway updates the idl directory, it receives a message from the management platform reminding it to restart)
 
-6.pkg包含授权，但是请忽略
+curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/add -d '{"first":1,"second":2}'  
+-------------return 996ers{\"sum\":"3"}
 
-7.go.mod名为api_gateway
+curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/echo -d '{"message":"hello"}'
+-------------return 996ers{\"hello\":\"world\"}
 
-8.go.sum 为go（衍生）生成文件
+curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/add -d '{"first":48,"second":51}'
+-------------return 996ers{\"sum\":"99"}
 
-测试：
-本地运行nacos（略）127.0.0.1:8848/nacos
+curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/echo -d '{"message":"Paylah@163.com hi"}'
+-------------return 996ers{\"hello\":\"world\"}
 
-go run .
-listening on address[::]8888 listening
-并返回日志在nacos中！
+Echo has v2 version (echo v2.thrift) (the add method was renamed as sum and the mul method was added)
+curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/echo -d '{"message":"Paylah@163.com hi"}'
+-------------return 996ers{\"message\": \"OK! Successfully sent!\"}
+curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/sum -d '{"first":5,"second":4}'
+-------------return 996ers{\"sum\":"9"}
+curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/mul -d '{"first":4,"second":5}'
+-------------return 996ers{\"mul\":"20"}
 
-go run ./hertz-gateway
-listening on address[::]8080 listening
+######################################################################
 
-curl 127.0.0.1:8080
-hertz-gateway is running
-连通！
+Error situation:
+404 no found indicates an issue with the input HTTP
+10001 indicates an error in the request content
+10005 indicates that request lacks of method
+10006 indicates generalization failure (method does not exist)
+996ers indicates that the program ran successfully without any interruption!
 
-curl http://127.0.0.1:8080/ping
-{"message":"pong"}
-证明网关在运行！
 
