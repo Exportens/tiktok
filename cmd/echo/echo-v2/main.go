@@ -122,6 +122,6 @@ func (g *GenericServiceImpl) GenericCall(ctx context.Context, method string, req
 		}		
 	}
 	fmt.Printf("Recv: %v\n", str)
-        return  "{\"message\": \"OK 收到 terima 受け取りました\"}", nil
+        return  "{\"message\": \"OK 收到 terima 受け取りました prapt hua\"}", nil
 }
 
