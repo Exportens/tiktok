@@ -1,6 +1,6 @@
 Explanation of project documents:
 
-1. Cache is a git generated file, please ignore it.
+1. Cache is an auto-generated file, please ignore it.
  
 2. The cmd folder contains a call to the server called hello, echo generalization, and its idl location is ./idl/
  
