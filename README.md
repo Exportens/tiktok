@@ -78,7 +78,7 @@ port is the same as your gateway setting.
 
 6.curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/echo -d '{"message":"hello"}'
 
--------------return 996ers{\"hello\":\"world\"}
+-------------return 996ers{\"message\":\"world\"}
 
 
 7.curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/add -d '{"first":48,"second":51}'
@@ -88,14 +88,14 @@ port is the same as your gateway setting.
 
 8.curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/echo -d '{"message":"Paylah@163.com hi"}'
 
--------------return 996ers{\"hello\":\"world\"}
+-------------return 996ers{\"message\": \"OK! Successfully sent!\"}
 
 
 Echo has v2 version (echo v2.thrift) (the add method was renamed as sum and the mul method was added)
 
 9.curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/echo -d '{"message":"Paylah@163.com hi"}'
 
--------------return 996ers{\"message\": \"OK! Successfully sent!\"}
+-------------return 996ers{\"message\": \"OK 收到 terima 受け取りました\"}
 
 
 10.curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/sum -d '{"first":5,"second":4}'
