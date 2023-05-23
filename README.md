@@ -42,6 +42,8 @@ cmd/echo/echo-v1 input: go run .	-----echo-v1(add, just same as hello)
 
 cmd/echo/echo-v2 input: go run .	-------------echo-v2(mul)
 
+hertz-gateway/ input: go run .       -------------gateway (with clients)​
+
 ######################################################################
 
 Gateway testing:
