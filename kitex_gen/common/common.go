@@ -9,12 +9,12 @@ import (
 type Err int64
 
 const (
-	Err_BadRequest           Err = 10001
-	Err_Unauthorized         Err = 10002
+	Err_BadRequest           Err = 10006
+	Err_Unauthorized         Err = 10004
 	Err_ServerNotFound       Err = 10003
-	Err_ServerMethodNotFound Err = 10004
+	Err_ServerMethodNotFound Err = 10002
 	Err_RequestServerFail    Err = 10005
-	Err_ServerHandleFail     Err = 10006
+	Err_ServerHandleFail     Err = 10001
 	Err_ResponseUnableParse  Err = 10007
 	Err_DuplicateOutOrderNo  Err = 20001
 )
