@@ -6,14 +6,8 @@ import (
 	//"api_gateway/hertz-gateway/biz/rt"
 )
 
-// register registers all routers.
-//func register(r *server.Hertz) {
-//	router.GeneratedRegister(r)
 
-//	customizedRegister(r)
-//}
-
-func register2(r *server.Hertz) {
+func register(r *server.Hertz) {
 	router.GeneratedRegister(r)
 
 	customizedRegister2(r)
