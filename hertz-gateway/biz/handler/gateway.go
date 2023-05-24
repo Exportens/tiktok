@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"net/http"
-	"github.com/zz1219/API_gateway/api_gateway/hertz-gateway/biz/errors"
-	"github.com/zz1219/API_gateway/api_gateway/kitex_gen/common"
+	"github.com/zz1219/api_gateway/hertz-gateway/biz/errors"
+	"github.com/zz1219/api_gateway/kitex_gen/common"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/kitex/client/genericclient"
 	"strings"
