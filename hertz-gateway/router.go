@@ -40,7 +40,6 @@ func registerGateway2(r *server.Hertz) {
 	if err != nil {
 		hlog.Fatalf("err:%v", err)
 	}
-	rout := "/gateway"
 	idlPath := "/home/ubuntu/go/src/github.com/cloudwego/api_gateway/idl/"
 	subDirs, err := ioutil.ReadDir(idlPath)
 	if err != nil {
@@ -58,8 +57,7 @@ func registerGateway2(r *server.Hertz) {
 			fmt.Println(subDirPath)
 			for _, entry := range c {
 				svcName := strings.ReplaceAll(entry.Name(), ".thrift", "")
-				result := rout+"-"+string(svcName)
-				group := r.Group(result)
+				group := r.Group(svcName)
 				provider, err := generic.NewThriftFileProvider(entry.Name(), subDirPath)
 				if err != nil {
 					hlog.Fatalf("new thrift file provider failed: %v", err)
@@ -84,10 +82,9 @@ func registerGateway2(r *server.Hertz) {
 					panic(err)
 				}
 				handler.SvcMap[svcName] = jcli
-				group.POST("/:svc/*action", handler.JGateway)
+				group.POST("/*action", handler.JGateway)
 
 			}
 		}
 	}
 }
-
