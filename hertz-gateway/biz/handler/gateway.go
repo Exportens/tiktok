@@ -7,12 +7,15 @@ import (
 	"api_gateway/kitex_gen/common"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/kitex/client/genericclient"
+	"strings"
 )
 var SvcMap = make(map[string]genericclient.Client)
 
 // Gateway handle the request with the query path of prefix `/gateway`.
 func JGateway(ctx context.Context, c *app.RequestContext) {
-	svcName := c.Param("svc")
+	sv := string(c.Request.Path())
+	parts := strings.Split(sv, "/")
+	svcName := parts[1]
 	cli, ok := SvcMap[svcName]
 	if !ok {
 		c.JSON(http.StatusOK, errors.New(common.Err_BadRequest))
@@ -20,7 +23,7 @@ func JGateway(ctx context.Context, c *app.RequestContext) {
 	}
 	action := c.Param("action")
 	if len(action) == 0{
-		c.JSON(http.StatusOK, errors.New(common.Err_RequestServerFail))
+		c.JSON(http.StatusOK, errors.New(common.Err_ServerMethodNotFound))
 		return
 	}
 	data := c.Request.Body()
