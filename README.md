@@ -14,7 +14,7 @@ Explanation of project documents:
  
 7. The log folder is the gateway and all service logs
  
-8. go.mod named API_ gateway
+8. go.mod named github.com/zz1219/API_gateway/api_ gateway
  
 9. go.sum generates files for go (derived)
 
@@ -126,4 +126,9 @@ c.10002 indicates that request lacks of method
 
 d.996ers indicates that the program ran successfully without any interruption!
 
+Other performance benchmark:
+
+Please run:
+
+ab -n 1000 -c 100 http://localhost:port/
 
