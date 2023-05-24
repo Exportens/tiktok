@@ -64,50 +64,54 @@ Latest kitex-json test statements:2023.5.16（"996ers" is the return-code of run
 
 The format should be
 
-3.curl -X POST HTTP/1.1(optional) -H "Content-Type: application/json"(optional) 'http://domain(:port)/gateway-svcName-version/svcName-version/method' -d '{"message": "hi"}'(can be replaced)
+3.curl -X POST HTTP/1.1(optional) -H "Content-Type: application/json"(optional) 'http://domain(:port)/svcName-version/method' -d '{"message": "hi"}'(can be replaced)
 
 port is the same as your gateway setting.
 
-4.curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/echo -d '{"message":"Updated"}'
+4.curl -X POST http://localhost:8080/hello-v1/echo -d '{"message":"Updated"}'
 
 -------------return 996ers{\"message\": \"OK! Both svr and gateway are on the way to restart!\"}(After the gateway updates the idl directory, it receives a message from the management platform reminding it to restart)
 
 
-5.curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/add -d '{"first":1,"second":2}' 
+5.curl -X POST http://localhost:8080/hello-v1/add -d '{"first":1,"second":2}' 
 
 -------------return 996ers{\"sum\":"3"}
 
 
-6.curl -X POST http://localhost:8080/gateway-hello-v1/hello-v1/echo -d '{"message":"hello"}'
+6.curl -X POST http://localhost:8080/hello-v1/echo -d '{"message":"hello"}'
 
 -------------return 996ers{\"message\":\"world\"}
 
 
-7.curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/add -d '{"first":48,"second":51}'
+7.curl -X POST http://localhost:8080/echo-v1/add -d '{"first":48,"second":51}'
 
 -------------return 996ers{\"sum\":"99"}
 
 
-8.curl -X POST http://localhost:8080/gateway-echo-v1/echo-v1/echo -d '{"message":"Paylah@163.com hi"}'
+8.curl -X POST http://localhost:8080/echo-v1/echo -d '{"message":"Paylah@163.com hi"}'
 
 -------------return 996ers{\"message\": \"OK! Successfully sent!\"}
 
 
 Echo has v2 version (echo v2.thrift) (the add method was renamed as sum and the mul method was added)
 
-9.curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/echo -d '{"message":"Paylah@163.com hi"}'
+9.curl -X POST http://localhost:8080/echo-v2/echo -d '{"message":"Paylah@163.com hi"}'
 
 -------------return 996ers{\"message\": \"OK 收到 terima 受け取りました\"}
 
 
-10.curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/sum -d '{"first":5,"second":4}'
+10.curl -X POST http://localhost:8080/echo-v2/sum -d '{"first":5,"second":4}'
 
 -------------return 996ers{\"sum\":"9"}
 
 
-11.curl -X POST http://localhost:8080/gateway-echo-v2/echo-v2/mul -d '{"first":4,"second":5}'
+11.curl -X POST http://localhost:8080/echo-v2/mul -d '{"first":4,"second":5}'
 
 -------------return 996ers{\"mul\":"20"}
+
+12.curl -X POST http://localhost:8080/echo-v2/echo -d '{"message":"?????"}'
+
+-------------return ?????????????????????????????????????????????????? Maybe a surprise here. This is a homework for you.
 
 
 ######################################################################
@@ -116,12 +120,10 @@ Error situation:
 
 a.404 no found indicates an issue with the input HTTP
 
-b.10001 indicates an error in the request content
+b.10001 indicates generalization failure (method does not exist)
 
-c.10005 indicates that request lacks of method
+c.10002 indicates that request lacks of method
 
-d.10006 indicates generalization failure (method does not exist)
-
-e.996ers indicates that the program ran successfully without any interruption!
+d.996ers indicates that the program ran successfully without any interruption!
 
 
