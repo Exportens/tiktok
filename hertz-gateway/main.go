@@ -25,7 +25,7 @@ func main() {
 	h.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
             ctx.JSON(consts.StatusOK, utils.H{"message": "pong"})
     })
-	register2(h)
+	register(h)
 	fmt.Println("正在监听 8080 端口...")
 	fmt.Println("Listening on port 8080...")
 	h.Spin()
