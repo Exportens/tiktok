@@ -1,4 +1,4 @@
-module api_gateway
+module github.com/zz1219/API_gateway/blob/master/api_gateway
 
 go 1.19
 
